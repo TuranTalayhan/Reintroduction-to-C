@@ -1,6 +1,7 @@
 
 #include <errno.h>
 #include <unistd.h>
+#include <string.h>
 
 #include "io.h"
 
@@ -18,13 +19,20 @@ read_char() {
 /* Writes c to stdout.  If no errors occur, it returns 0, otherwise EOF */
 int
 write_char(char c) {
-  return EOF;
+    char* d = &c;
+    if(write(1, d, 1)!=-1){
+        return 0;
+    }
+    return EOF;
 }
 
 /* Writes a null-terminated string to stdout.  If no errors occur, it returns 0, otherwise EOF */
 int
 write_string(char* s) {
-  return EOF;
+    if(write(1,s, strlen(s))!=-1){
+        return 0;
+    }
+    return EOF;
 }
 
 /* Writes n to stdout (without any formatting).   
@@ -32,5 +40,9 @@ write_string(char* s) {
  */
 int
 write_int(int n) {
-  return EOF;
+    int* m = &n;
+    if(write(1,m, 1)!=-1){
+        return 0;
+    }
+    return EOF;
 }
