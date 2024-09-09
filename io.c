@@ -39,11 +39,26 @@ int write_string(char* s) {
 /* Writes n to stdout (without any formatting).   
  * If no errors occur, it returns 0, otherwise EOF
  */
-int
-write_int(int n) {
-    int* m = &n;
-    if(write(1,m, 1)!=-1){
-        return 0;
+int write_int(int n) {
+    char buffer[12]; // Enough to hold all numbers up to 32-bit integers
+    int length = 0;
+
+    if (n == 0) {
+        buffer[length++] = '0';
+    } else {
+        while (n > 0) {
+            buffer[length++] = (n % 10) + '0';
+            n /= 10;
+        }
+
+        // Reverse the string
+        for (int i = 0; i < length / 2; ++i) {
+            char temp = buffer[i];
+            buffer[i] = buffer[length - i - 1];
+            buffer[length - i - 1] = temp;
+        }
     }
-    return EOF;
+
+    ssize_t result = write(1, buffer, length);
+    return (result != -1) ? 0 : EOF;
 }
