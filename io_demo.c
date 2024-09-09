@@ -40,7 +40,9 @@ main()
 
       /* Write c to stdout and increment counter*/
       write_char(c);
-      count++;
+      if (c != 'q'){
+      	count++;
+      }
     }
   while (c != 'q'); /* quit when we see a q char */
 
