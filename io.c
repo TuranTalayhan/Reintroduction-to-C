@@ -5,10 +5,7 @@
 /* Reads next char from stdin. If no more characters, it returns EOF */
 int read_char() {
     char a;
-    long bytes_read;
-    bytes_read = read(0, &a, 1);
-
-    if (bytes_read == 1) {
+    if (read(0, &a, 1) == 1) {
         return (int)a;
     } else {
         return EOF;
@@ -16,10 +13,8 @@ int read_char() {
 }
 
 /* Writes c to stdout.  If no errors occur, it returns 0, otherwise EOF */
-int
-write_char(char c) {
-    char* d = &c;
-    if(write(1, d, 1)!=-1){
+int write_char(char c) {
+    if(write(1, &c, 1)!=-1){
         return 0;
     }
     return EOF;
