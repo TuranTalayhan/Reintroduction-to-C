@@ -1,17 +1,12 @@
-
-#include <errno.h>
 #include <unistd.h>
 #include <string.h>
-
 #include "io.h"
 
 /* Reads next char from stdin. If no more characters, it returns EOF */
 int read_char() {
     char a;
     long bytes_read;
-    do {
-        bytes_read = read(0, &a, 1);
-    } while (bytes_read == -1 && errno == EINTR);
+    bytes_read = read(0, &a, 1);
 
     if (bytes_read == 1) {
         return (int)a;
