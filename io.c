@@ -37,13 +37,23 @@ int write_string(char* s) {
 int write_int(int n) {
     char buffer[12]; // Enough to hold all numbers up to 32-bit integers
     int length = 0;
+    int is_negative = 0;
 
     if (n == 0) {
         buffer[length++] = '0';
     } else {
+        if (n < 0) {
+            is_negative = 1;
+            n = -n;
+        }
+
         while (n > 0) {
             buffer[length++] = (n % 10) + '0';
             n /= 10;
+        }
+
+        if (is_negative) {
+            buffer[length++] = '-';
         }
 
         // Reverse the string
@@ -54,6 +64,7 @@ int write_int(int n) {
         }
     }
 
+    buffer[length] = '\0';
     ssize_t result = write(1, buffer, length);
     return (result != -1) ? 0 : EOF;
 }
