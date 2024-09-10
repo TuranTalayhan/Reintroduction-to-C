@@ -3,23 +3,35 @@
 #include <stdlib.h>
 #include "io.h"
 
-struct List {
+struct Node {
 
-    int head;
+    int data;
 
-    struct List *prev;
+    struct Node *prev;
 
-    struct List *next;
+    struct Node *next;
 };
 
-struct List *createList(int new_head) {
-    struct List *new_list = (struct List *) malloc(sizeof(struct List));
-    new_list->head = new_head;
-    new_list->next = NULL;
-    new_list->prev = NULL;
-    return new_list;
+struct Node *createList(int new_data) {
+    struct Node *new_node = (struct Node *) malloc(sizeof(struct Node));
+    new_node->data = new_data;
+    new_node->next = NULL;
+    new_node->prev = NULL;
+    return new_node;
 }
 
+
+
+void printList(struct Node* head){
+
+    struct Node* current = head;
+
+    while (current != NULL){
+        write_int(head->data);
+    }
+
+    current = current->next;
+}
 
 
 
@@ -53,7 +65,6 @@ main() {
      *    as a comma delimited series of integers
      *-----------------------------------------------------------------*/
     int counter = 0;
-
 
     return 0;
 }
