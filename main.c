@@ -12,7 +12,7 @@ struct Node {
     struct Node *next;
 };
 
-struct Node *createList(int new_data) {
+struct Node *create_node(int new_data) {
     struct Node *new_node = (struct Node *) malloc(sizeof(struct Node));
     new_node->data = new_data;
     new_node->next = NULL;
@@ -22,15 +22,17 @@ struct Node *createList(int new_data) {
 
 
 
-void printList(struct Node* head){
+void write_list(struct Node* head){
 
     struct Node* current = head;
 
     while (current != NULL){
-        write_int(head->data);
+        write_int(current->data);
+        if(current->next != NULL){
+            write_char(',');
+        }
+        current = current->next;
     }
-
-    current = current->next;
 }
 
 
@@ -65,6 +67,22 @@ main() {
      *    as a comma delimited series of integers
      *-----------------------------------------------------------------*/
     int counter = 0;
+
+    struct Node* head = create_node(1);
+    struct Node* second = create_node(2);
+    struct Node* third = create_node(3);
+
+    head->next = second;
+    second->prev = head;
+    second->next = third;
+    third->prev = second;
+
+    write_list(head);
+    write_char(';');
+
+    free(head);
+    free(second);
+    free(third);
 
     return 0;
 }
