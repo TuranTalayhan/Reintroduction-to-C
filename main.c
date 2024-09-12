@@ -20,6 +20,21 @@ struct Node *create_node(int new_data) {
     return new_node;
 }
 
+struct Node *add(struct Node *head, int new_data){
+    struct Node *new_node = create_node(new_data);
+    if(head == NULL){
+        head = new_node;
+    } else {
+        struct Node *current = head;
+        while(current->next != NULL){
+            current = current->next;
+        }
+
+        current->next = new_node;
+        new_node->prev = current;
+    }
+    return head;
+}
 
 
 void write_list(struct Node* head){
@@ -30,9 +45,13 @@ void write_list(struct Node* head){
         write_int(current->data);
         if(current->next != NULL){
             write_char(',');
+        } else {
+            write_char(';');
         }
         current = current->next;
     }
+
+    write_char('\n');
 }
 
 
@@ -67,22 +86,24 @@ main() {
      *    as a comma delimited series of integers
      *-----------------------------------------------------------------*/
     int counter = 0;
+    int c = read_char();
 
-    struct Node* head = create_node(1);
-    struct Node* second = create_node(2);
-    struct Node* third = create_node(3);
+    struct Node* head = NULL;
 
-    head->next = second;
-    second->prev = head;
-    second->next = third;
-    third->prev = second;
-
+    while(c == 'a' || c == 'b' || c == 'c'){
+        if(c == 'a'){
+            head = add(head, counter);
+            counter++;
+        } else if (c == 'b'){
+            counter++;
+        } else {
+        }
+        c = read_char();
+        c = read_char();
+    }
     write_list(head);
-    write_char(';');
 
     free(head);
-    free(second);
-    free(third);
 
     return 0;
 }
