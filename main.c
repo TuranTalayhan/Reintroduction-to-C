@@ -53,6 +53,22 @@ void write_list(struct Node* head){
 
     write_char('\n');
 }
+struct Node *remove_last(struct Node *head) {
+    if (head == NULL) {
+        return NULL;
+    }
+    if (head->next == NULL) {
+        free(head);
+        return NULL;
+    }
+    struct Node *current = head;
+    while (current->next != NULL) {
+        current = current->next;
+    }
+    current->prev->next = NULL;
+    free(current);
+    return head;
+}
 
 
 
@@ -96,14 +112,19 @@ main() {
             counter++;
         } else if (c == 'b'){
             counter++;
-        } else {
+        } else if (c == 'c'){
+            head = remove_last(head);
+            counter++;
         }
-        c = read_char();
         c = read_char();
     }
     write_list(head);
 
-    free(head);
+    while (head != NULL) {
+        struct Node *temp = head;
+        head = head->next;
+        free(temp);
+    }
 
     return 0;
 }
