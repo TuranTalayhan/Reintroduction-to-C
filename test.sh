@@ -19,3 +19,7 @@ out="0,1,2,3,4;"
 in="bbbbbbbbbaq"
 out="9;"
 [[ $(./cmd_int <<< "$in") == "$out"* ]] && echo "PASSED" || echo "FAILED"
+
+in=""
+out=";"
+[[ $(./cmd_int <<< "$in") == "$out"* ]] && echo "PASSED" || echo "FAILED"

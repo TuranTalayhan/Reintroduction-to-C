@@ -45,12 +45,11 @@ void write_list(struct Node* head){
         write_int(current->data);
         if(current->next != NULL){
             write_char(',');
-        } else {
-            write_char(';');
         }
         current = current->next;
     }
 
+    write_char(';');
     write_char('\n');
 }
 struct Node *remove_last(struct Node *head) {
